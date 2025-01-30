@@ -31,5 +31,5 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > private_key && chmod 600 private_key
           scp -i private_key target/*.jar $USER@$43.204.85.137:/home/ubuntu/app.jar
           ssh -i private_key $USER@$43.204.85.137 << 'EOF'
-            nohup java -jar /home/ubuntu/app.jar > /home/ubuntu/logs.txt 2>&1 &
+            nohup java -jar /home/ubuntu/bookstore.jar > /home/ubuntu/logs.txt 2>&1 &
           EOF
