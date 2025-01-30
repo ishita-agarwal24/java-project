@@ -1,0 +1,36 @@
+name: Deploy Spring Boot Application
+
+on:
+  push:
+    branches:
+      - main  # Change to your main branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Build with Maven
+        run: mvn clean package
+
+      - name: Deploy to AWS
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SERVER_IP: "43.204.85.137"
+          USER: "ubuntu"
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key && chmod 600 private_key
+          scp -i private_key target/bookstore.jar $USER@$SERVER_IP:/home/ubuntu/bookstore.jar
+          ssh -i private_key $USER@$SERVER_IP << 'EOF'
+            sudo kill $(sudo lsof -t -i:8080) || true
+            nohup java -jar /home/ubuntu/bookstore.jar > /home/ubuntu/logs.txt 2>&1 &
+          EOF
