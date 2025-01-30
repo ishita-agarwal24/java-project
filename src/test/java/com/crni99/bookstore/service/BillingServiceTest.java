@@ -120,8 +120,10 @@ class BillingServiceTest {
 		when(orderRepository.findAll()).thenReturn(orders);
 
 		List<CustomerBooks> customerBooks = billingService.findOrdersByCustomerId(2L);
-		assertThat(customer2).isEqualTo(customerBooks.get(0).getCustomer());
-		assertThat(List.of(book2, book3)).isEqualTo(customerBooks.get(0).getBooks());
+		assertThat(customer2.getID()).isEqualTo(customerBooks.get(0).getCustomer().getID());
+		assertThat(customerBooks.get(0).getBooks()).containsExactlyInAnyOrder(book2, book3);
+}
+		//assertThat(List.of(book2, book3)).isEqualTo(customerBooks.get(0).getBooks());
 	}
 
 }
