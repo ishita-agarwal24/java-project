@@ -3,7 +3,7 @@ name: Deploy Spring Boot Application
 on:
   push:
     branches:
-      - main  # Change to your main branch name
+      - main  # Change to your main branch
 
 jobs:
   deploy:
@@ -25,12 +25,12 @@ jobs:
       - name: Deploy to AWS
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SERVER_IP: "43.204.85.137"
+          SERVER_IP: ${{ secrets.SERVER_IP }}
           USER: "ubuntu"
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key && chmod 600 private_key
-          scp -i private_key target/bookstore.jar $USER@$SERVER_IP:/home/ubuntu/bookstore.jar
-          ssh -i private_key $USER@$SERVER_IP << 'EOF'
-            sudo kill $(sudo lsof -t -i:8080) || true
+          scp -i private_key target/bookstore.jar $USER@$43.204.85.137:/home/ubuntu/bookstore.jar
+          ssh -i private_key $USER@$43.204.85.137 << 'EOF'
+            sudo systemctl stop bookstore || true
             nohup java -jar /home/ubuntu/bookstore.jar > /home/ubuntu/logs.txt 2>&1 &
           EOF
