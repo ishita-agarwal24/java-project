@@ -1,0 +1,11 @@
+com\crni99\bookstore\controller\CartControllerTest.class
+com\crni99\bookstore\controller\LoginControllerTest.class
+com\crni99\bookstore\controller\CheckoutControllerTest.class
+com\crni99\bookstore\controller\HomeControllerTest.class
+com\crni99\bookstore\service\BillingServiceTest.class
+com\crni99\bookstore\controller\BookControllerTest.class
+com\crni99\bookstore\BookStoreApplicationTests.class
+com\crni99\bookstore\controller\OrderControllerTest.class
+com\crni99\bookstore\service\EmailServiceTest.class
+com\crni99\bookstore\service\BookServiceTest.class
+com\crni99\bookstore\service\ShoppingCartServiceTest.class
