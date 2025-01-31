@@ -33,3 +33,4 @@ jobs:
           ssh -i private_key $USER@$SERVER_IP << 'EOF'
             nohup java -jar bookstore.jar > /home/ubuntu/logs.txt 2>&1 &
           EOF
+         
