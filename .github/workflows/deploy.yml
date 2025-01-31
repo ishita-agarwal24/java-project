@@ -29,7 +29,7 @@ jobs:
           USER: "ubuntu"
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key && chmod 600 private_key
-          scp -i private_key bookstore.jar $USER@$SERVER_IP:/home/ubuntu/java-project/target/bookstore.jar
+          scp -i private_key target/bookstore.jar $USER@$SERVER_IP:/home/ubuntu/java-project/target/bookstore.jar
           ssh -i private_key $USER@$SERVER_IP << 'EOF'
             nohup java -jar bookstore.jar > /home/ubuntu/logs.txt 2>&1 &
           EOF
